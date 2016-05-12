@@ -53,6 +53,9 @@ public class XMLUtilitiesTest {
         org.w3c.dom.Element childElement = XMLUtilities.getFirstChild(rootElement, "vertex");
         assertEquals("vertex", childElement.getNodeName());
         assertEquals("1", childElement.getAttribute("index"));
+        
+        //when the child is not found return null
+        assertEquals(null, XMLUtilities.getFirstChild(rootElement, "nonexistent"));
     }
     
     @Test
@@ -65,5 +68,9 @@ public class XMLUtilitiesTest {
         assertEquals("1", childElements[0].getAttribute("index"));
         assertEquals("vertex", childElements[1].getNodeName());
         assertEquals("2", childElements[1].getAttribute("index"));
+        
+        //when children are not found, return empty Element array
+        org.w3c.dom.Element[] noChildElements = XMLUtilities.getChildren(rootElement, "nonexistent");
+        assertEquals(0, noChildElements.length); 
     }
 }
