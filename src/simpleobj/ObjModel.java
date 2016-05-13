@@ -20,21 +20,33 @@ public class ObjModel {
 
     public String name;
     public Point3D[] vertices;
+    public Polygon[] polygons;
 
+    public ObjModel(String name) {
+        this.name = name;
+    }
+    
     public static ObjModel read(String xmlPath) throws ParserConfigurationException, SAXException, IOException, InvalidObjectXMLException {
         Element rootElement = XMLUtilities.getRoot(xmlPath);
         Element objectElement = XMLUtilities.getFirstChild(rootElement, "object");
-
+        
         String name = objectElement.getAttribute("name");
-
+        
+        ObjModel objModel = new ObjModel(name);
+        
         Element verticesElement = XMLUtilities.getFirstChild(objectElement, "vertices");
         Element[] vertexElementsOrdered = Order(XMLUtilities.getChildren(verticesElement, "vertex"));
         Point3D[] vertices = deriveVertices(vertexElementsOrdered);
+        
+        objModel.vertices = vertices;
 
         Element polygonsElement = XMLUtilities.getFirstChild(objectElement, "polygons");
-        // Polygon[] faces = deriveFaces(XMLUtilities.getChildren(polygonsElement, "polygon"));
+        Element[] polygonElements = XMLUtilities.getChildren(polygonsElement, "polygon");
+        Polygon[] polygons = derivePolygons(objModel, polygonElements);
 
-        return new ObjModel();
+        objModel.polygons = polygons;
+        
+        return objModel;
     }
 
     public static Element[] Order(Element[] vertexElementsUnordered) throws InvalidObjectXMLException {
@@ -73,10 +85,39 @@ public class ObjModel {
         return vertices;
     }
 
-//    public static Polygon[] deriveFaces(Element[] polygonElements) {
-//        
-//        return new Polygon(normal, vertices, uv);
-//    }
+    public static Polygon[] derivePolygons(ObjModel objModel, Element[] polygonElements) {
+        int polygonCount = polygonElements.length;
+        Polygon[] polygons = new Polygon[polygonCount];
+        
+        for(int i=0; i < polygonCount; i++) {
+            Element polygonElement = polygonElements[i];
+            Element normalElement = XMLUtilities.getFirstChild(polygonElement, "normal");
+            double normalX = Double.parseDouble(normalElement.getAttribute("x"));
+            double normalY = Double.parseDouble(normalElement.getAttribute("y"));
+            double normalZ = Double.parseDouble(normalElement.getAttribute("z"));
+            Point3D normal = new Point3D(normalX, normalY, normalZ);
+            
+            Element verticesElement = XMLUtilities.getFirstChild(polygonElement, "vertices");
+            Element[] vertexElements = XMLUtilities.getChildren(verticesElement, "vertex");
+            
+            int vertexCount = vertexElements.length;
+            int[] vertexIndicies = new int[vertexCount];
+            Point2D[] uv = new Point2D[vertexCount];
+            for(int j=0; j < vertexCount; j++) {
+              vertexIndicies[j] = Integer.parseInt(vertexElements[j].getAttribute("index"));
+              
+              Element uvElement = XMLUtilities.getFirstChild(vertexElements[j], "uv");
+              double uvX = Double.parseDouble(uvElement.getAttribute("x"));
+              double uvY = Double.parseDouble(uvElement.getAttribute("y"));
+              
+              uv[j] = new Point2D(uvX, uvY);          
+            }
+            
+            polygons[i] = new Polygon(objModel, vertexIndicies, normal, uv);
+        }
+        
+        return polygons;
+    }
 }
 
 class Polygon {

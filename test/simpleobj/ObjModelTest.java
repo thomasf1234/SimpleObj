@@ -6,6 +6,7 @@
 package simpleobj;
 
 import java.io.IOException;
+import javafx.geometry.Point2D;
 import javafx.geometry.Point3D;
 import javax.xml.parsers.ParserConfigurationException;
 import org.junit.After;
@@ -104,32 +105,41 @@ public class ObjModelTest {
         assertEquals(-0.9999998211860657, vertices[2].getY(), delta);
         assertEquals(-1, vertices[2].getZ(), delta);
     }
-    
-//    /**
-//     * Test of read method, of class ObjModel.
-//     */
-//    @Test
-//    public void testRead() throws Exception {
-//        System.out.println("read");
-//        String xmlPath = "";
-//        ObjModel expResult = null;
-//        ObjModel result = ObjModel.read(xmlPath);
-//        assertEquals(expResult, result);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
 
     /**
      * Test of read method, of class ObjModel.
      */
     @Test
     public void testRead() throws Exception {
-        System.out.println("read");
-        String xmlPath = "";
-        ObjModel expResult = null;
-        ObjModel result = ObjModel.read(xmlPath);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        String xmlPath = "test\\samples\\Cube.xml";
+        ObjModel cube = ObjModel.read(xmlPath);
+        
+        assertEquals("Cube", cube.name);
+        assertEquals(8, cube.vertices.length);
+        assertEquals(new Point3D(1.0, 0.9999999403953552, -1.0), cube.vertices[0]);
+        assertEquals(new Point3D(1.0000004768371582, 0.999999463558197, 1.0), cube.vertices[4]);
+        assertEquals(new Point3D(-0.9999999403953552, 1.0, 1.0), cube.vertices[7]);
+
+        assertEquals(12, cube.polygons.length);
+        
+        //testing first polygon
+        assertEquals(true, cube.polygons[0].isTriangle());
+        assertEquals(new Point3D(0, 0, -1), cube.polygons[0].normal);
+        assertEquals(new Point3D(1, -1, -1), cube.polygons[0].getVertices()[0]);
+        assertEquals(new Point2D(1, 0), cube.polygons[0].uv[0]);
+        assertEquals(new Point3D(-1.0000001192092896, -0.9999998211860657, -1), cube.polygons[0].getVertices()[1]);
+        assertEquals(new Point2D(1, 1), cube.polygons[0].uv[1]);
+        assertEquals(new Point3D(-0.9999996423721313, 1.0000003576278687, -1), cube.polygons[0].getVertices()[2]);      
+        assertEquals(new Point2D(0, 1), cube.polygons[0].uv[2]);
+        
+        //testing last polygon
+        assertEquals(true, cube.polygons[11].isTriangle());
+        assertEquals(new Point3D(2.6822084464583895 * Math.pow(10, -7), 1, 2.3841852225814364 * Math.pow(10, -7)), cube.polygons[11].normal);
+        assertEquals(new Point3D(1.0000004768371582, 0.999999463558197, 1), cube.polygons[11].getVertices()[0]);
+        assertEquals(new Point2D(0, 0), cube.polygons[11].uv[0]);
+        assertEquals(new Point3D(1, 0.9999999403953552, -1), cube.polygons[11].getVertices()[1]);
+        assertEquals(new Point2D(1, 0), cube.polygons[11].uv[1]);
+        assertEquals(new Point3D(-0.9999999403953552, 1, 1), cube.polygons[11].getVertices()[2]);      
+        assertEquals(new Point2D(0, 1), cube.polygons[11].uv[2]);
     }
 }

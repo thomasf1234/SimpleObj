@@ -1,0 +1,185 @@
+<?xml version="1.0" ?>
+<root>
+   <object name="Cube">
+      <vertices count="8">
+         <vertex index="0" x="1.0" y="0.9999999403953552" z="-1.0"/>
+         <vertex index="1" x="1.0" y="-1.0" z="-1.0"/>
+         <vertex index="2" x="-1.0000001192092896" y="-0.9999998211860657" z="-1.0"/>
+         <vertex index="3" x="-0.9999996423721313" y="1.0000003576278687" z="-1.0"/>
+         <vertex index="4" x="1.0000004768371582" y="0.999999463558197" z="1.0"/>
+         <vertex index="5" x="0.9999993443489075" y="-1.0000005960464478" z="1.0"/>
+         <vertex index="6" x="-1.0000003576278687" y="-0.9999996423721313" z="1.0"/>
+         <vertex index="7" x="-0.9999999403953552" y="1.0" z="1.0"/>
+      </vertices>
+      <polygons count="12">
+         <polygon>
+            <normal x="0.0" y="-0.0" z="-1.0"/>
+            <vertices count="3">
+               <vertex index="1">
+                  <uv x="1.0" y="0.0"/>
+               </vertex>
+               <vertex index="2">
+                  <uv x="1.0" y="1.0"/>
+               </vertex>
+               <vertex index="3">
+                  <uv x="0.0" y="1.0"/>
+               </vertex>
+            </vertices>
+         </polygon>
+         <polygon>
+            <normal x="0.0" y="-0.0" z="1.0"/>
+            <vertices count="3">
+               <vertex index="7">
+                  <uv x="1.0" y="0.0"/>
+               </vertex>
+               <vertex index="6">
+                  <uv x="1.0" y="1.0"/>
+               </vertex>
+               <vertex index="5">
+                  <uv x="0.0" y="1.0"/>
+               </vertex>
+            </vertices>
+         </polygon>
+         <polygon>
+            <normal x="1.0" y="-5.662441253662109e-07" z="3.2782537573439186e-07"/>
+            <vertices count="3">
+               <vertex index="4">
+                  <uv x="1.0" y="0.0"/>
+               </vertex>
+               <vertex index="5">
+                  <uv x="1.0" y="1.0"/>
+               </vertex>
+               <vertex index="1">
+                  <uv x="0.0" y="1.0"/>
+               </vertex>
+            </vertices>
+         </polygon>
+         <polygon>
+            <normal x="-4.768372150465439e-07" y="-1.0" z="8.940690321423972e-08"/>
+            <vertices count="3">
+               <vertex index="5">
+                  <uv x="1.0" y="0.0"/>
+               </vertex>
+               <vertex index="6">
+                  <uv x="1.0" y="1.0"/>
+               </vertex>
+               <vertex index="2">
+                  <uv x="0.0" y="1.0"/>
+               </vertex>
+            </vertices>
+         </polygon>
+         <polygon>
+            <normal x="-1.0" y="2.0861631355728605e-07" z="-1.1920931797249068e-07"/>
+            <vertices count="3">
+               <vertex index="2">
+                  <uv x="0.0" y="0.0"/>
+               </vertex>
+               <vertex index="6">
+                  <uv x="1.0" y="0.0"/>
+               </vertex>
+               <vertex index="7">
+                  <uv x="1.0" y="1.0"/>
+               </vertex>
+            </vertices>
+         </polygon>
+         <polygon>
+            <normal x="2.0861631355728605e-07" y="1.0" z="1.7881397695873602e-07"/>
+            <vertices count="3">
+               <vertex index="0">
+                  <uv x="1.0" y="0.0"/>
+               </vertex>
+               <vertex index="3">
+                  <uv x="1.0" y="1.0"/>
+               </vertex>
+               <vertex index="7">
+                  <uv x="0.0" y="1.0"/>
+               </vertex>
+            </vertices>
+         </polygon>
+         <polygon>
+            <normal x="0.0" y="0.0" z="-1.0"/>
+            <vertices count="3">
+               <vertex index="0">
+                  <uv x="0.0" y="0.0"/>
+               </vertex>
+               <vertex index="1">
+                  <uv x="1.0" y="0.0"/>
+               </vertex>
+               <vertex index="3">
+                  <uv x="0.0" y="1.0"/>
+               </vertex>
+            </vertices>
+         </polygon>
+         <polygon>
+            <normal x="-0.0" y="-0.0" z="1.0"/>
+            <vertices count="3">
+               <vertex index="4">
+                  <uv x="0.0" y="0.0"/>
+               </vertex>
+               <vertex index="7">
+                  <uv x="1.0" y="0.0"/>
+               </vertex>
+               <vertex index="5">
+                  <uv x="0.0" y="1.0"/>
+               </vertex>
+            </vertices>
+         </polygon>
+         <polygon>
+            <normal x="1.0" y="0.0" z="-2.384185791015625e-07"/>
+            <vertices count="3">
+               <vertex index="0">
+                  <uv x="0.0" y="0.0"/>
+               </vertex>
+               <vertex index="4">
+                  <uv x="1.0" y="0.0"/>
+               </vertex>
+               <vertex index="1">
+                  <uv x="0.0" y="1.0"/>
+               </vertex>
+            </vertices>
+         </polygon>
+         <polygon>
+            <normal x="-8.940695295223122e-08" y="-1.0" z="-2.9802325229866256e-07"/>
+            <vertices count="3">
+               <vertex index="1">
+                  <uv x="0.0" y="0.0"/>
+               </vertex>
+               <vertex index="5">
+                  <uv x="1.0" y="0.0"/>
+               </vertex>
+               <vertex index="2">
+                  <uv x="0.0" y="1.0"/>
+               </vertex>
+            </vertices>
+         </polygon>
+         <polygon>
+            <normal x="-1.0" y="2.3841855067985307e-07" z="-1.490115550950577e-07"/>
+            <vertices count="3">
+               <vertex index="3">
+                  <uv x="0.0" y="1.0"/>
+               </vertex>
+               <vertex index="2">
+                  <uv x="0.0" y="0.0"/>
+               </vertex>
+               <vertex index="7">
+                  <uv x="1.0" y="1.0"/>
+               </vertex>
+            </vertices>
+         </polygon>
+         <polygon>
+            <normal x="2.6822084464583895e-07" y="1.0" z="2.3841852225814364e-07"/>
+            <vertices count="3">
+               <vertex index="4">
+                  <uv x="0.0" y="0.0"/>
+               </vertex>
+               <vertex index="0">
+                  <uv x="1.0" y="0.0"/>
+               </vertex>
+               <vertex index="7">
+                  <uv x="0.0" y="1.0"/>
+               </vertex>
+            </vertices>
+         </polygon>
+      </polygons>
+   </object>
+</root>

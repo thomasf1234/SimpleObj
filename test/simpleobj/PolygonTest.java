@@ -43,7 +43,7 @@ public class PolygonTest {
      */
     @Test
     public void testGetLength() {
-        ObjModel objModel = new ObjModel();
+        ObjModel objModel = new ObjModel("TestObject");
         objModel.vertices = new Point3D[]{new Point3D(0, 0, 0), new Point3D(1, 0, 0), new Point3D(0, 1, 0), new Point3D(0, 0, 1)};
         
         int[] vertexIndicies = new int[]{0, 1, 3};
@@ -58,7 +58,7 @@ public class PolygonTest {
      */
     @Test
     public void testGetVertices() {
-        ObjModel objModel = new ObjModel();
+        ObjModel objModel = new ObjModel("TestObject");
         objModel.vertices = new Point3D[]{new Point3D(0, 0, 0), new Point3D(1, 0, 0), new Point3D(0, 1, 0), new Point3D(0, 0, 1),};
        
         Point3D normal = new Point3D(0, 0, -1);
@@ -77,7 +77,7 @@ public class PolygonTest {
      */
     @Test
     public void testIsTriangle() {
-        ObjModel objModel = new ObjModel();
+        ObjModel objModel = new ObjModel("TestObject");
         objModel.vertices = new Point3D[]{new Point3D(0, 0, 0), new Point3D(1, 0, 0), new Point3D(0, 1, 0), new Point3D(0, 0, 1),};
        
         Point3D normal = new Point3D(0, 0, -1);
