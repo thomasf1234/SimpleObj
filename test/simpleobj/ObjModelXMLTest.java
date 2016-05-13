@@ -22,9 +22,9 @@ import org.xml.sax.SAXException;
  *
  * @author ad
  */
-public class ObjModelTest {
+public class ObjModelXMLTest {
     
-    public ObjModelTest() {
+    public ObjModelXMLTest() {
     }
     
     @BeforeClass
@@ -57,7 +57,7 @@ public class ObjModelTest {
             org.w3c.dom.Element verticesElementValid = XMLUtilities.getFirstChild(rootElementValid, "vertices");
             org.w3c.dom.Element[] vertexElementsValid = XMLUtilities.getChildren(verticesElementValid, "vertex");
 
-            org.w3c.dom.Element[] vertexElementsOrdered = ObjModel.Order(vertexElementsValid);
+            Element[] vertexElementsOrdered = ObjModelXML.Order(vertexElementsValid);
             assertEquals(3, vertexElementsOrdered.length);   
             assertEquals("0", vertexElementsOrdered[0].getAttribute("index"));  
             assertEquals("1", vertexElementsOrdered[1].getAttribute("index"));  
@@ -74,7 +74,7 @@ public class ObjModelTest {
             org.w3c.dom.Element[] vertexElementsInvalid = XMLUtilities.getChildren(verticesElementInvalid, "vertex");
 
             try {
-              org.w3c.dom.Element[] vertexElementsOrdered = ObjModel.Order(vertexElementsInvalid);
+              org.w3c.dom.Element[] vertexElementsOrdered = ObjModelXML.Order(vertexElementsInvalid);
               fail("Should have raised InvalidObjectXMLException");
             } catch(InvalidObjectXMLException e) {
                 
@@ -88,8 +88,8 @@ public class ObjModelTest {
         org.w3c.dom.Element rootElement = XMLUtilities.getRoot(testXmlPath);
         org.w3c.dom.Element verticesElement = XMLUtilities.getFirstChild(rootElement, "vertices");
         org.w3c.dom.Element[] vertexElements = XMLUtilities.getChildren(verticesElement, "vertex");
-        org.w3c.dom.Element[] vertexElementsOrdered = ObjModel.Order(vertexElements);
-        Point3D[] vertices = ObjModel.deriveVertices(vertexElementsOrdered);
+        org.w3c.dom.Element[] vertexElementsOrdered = ObjModelXML.Order(vertexElements);
+        Point3D[] vertices = ObjModelXML.deriveVertices(vertexElementsOrdered);
         
         assertEquals(3, vertices.length);
         double delta = 0.0000000000000001;
@@ -112,7 +112,7 @@ public class ObjModelTest {
     @Test
     public void testRead() throws Exception {
         String xmlPath = "test\\samples\\Cube.xml";
-        ObjModel cube = ObjModel.read(xmlPath);
+        ObjModel cube = ObjModelXML.read(xmlPath);
         
         assertEquals("Cube", cube.name);
         assertEquals(8, cube.vertices.length);
