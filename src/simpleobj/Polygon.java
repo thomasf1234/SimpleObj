@@ -43,4 +43,8 @@ public class Polygon {
     public boolean isTriangle() {
         return getLength() == 3;
     }
+    
+    public boolean isClockwise() {
+        return this.normal.getZ() > 0;
+    }
 }

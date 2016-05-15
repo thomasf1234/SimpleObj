@@ -88,4 +88,18 @@ public class PolygonTest {
         assertEquals(false, rectangle.isTriangle());
     }
     
+    @Test
+    public void testIsClockwise() {
+        ObjModel objModel = new ObjModel("TestObject");
+        objModel.vertices = new Point3D[]{new Point3D(0, 0, 0), new Point3D(1, 0, 0), new Point3D(0, 1, 0), new Point3D(0, 0, 1),};
+       
+        Point3D awayNormal = new Point3D(2, 3, -1);
+        Polygon triangle = new Polygon(objModel, new int[]{0, 1, 3}, awayNormal, null);
+        assertEquals(false, triangle.isClockwise());
+        
+        Point3D towardsNormal = new Point3D(2, -3, 1);
+        Polygon triangle2 = new Polygon(objModel, new int[]{1, 2, 3}, towardsNormal, null);
+        assertEquals(true, triangle2.isClockwise());
+    }
+    
 }
