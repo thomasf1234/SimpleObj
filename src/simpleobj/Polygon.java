@@ -42,8 +42,9 @@ public class Polygon {
     
     public Point3D[] getOrderedVertices() {
         Point3D[] vertices = new Point3D[getLength()];
-        for (int i = 0; i < vertices.length; i++) {
-            int[] orderedVertexIndicies = getOrderedVertexIndicies();
+        int[] orderedVertexIndicies = getOrderedVertexIndicies();
+        
+        for (int i = 0; i < vertices.length; i++) {          
             vertices[i] = this.objModel.vertices[orderedVertexIndicies[i]];
         }
 
@@ -51,67 +52,75 @@ public class Polygon {
     }
     
     public int[] getOrderedVertexIndicies() {
-        int[] orderedVertexIndicies = new int[3];
+      if(isClockwise()) {
+          return getClockwiseVertexIndicies();
+      } else {
+          return getCounterClockwiseVertexIndicies();
+      }
+    }
+    
+    public int[] getCounterClockwiseVertexIndicies() {
+      int[] counterClockwiseVertexIndicies = new int[3];  
+      int[] clockwiseVertexIndicies = getClockwiseVertexIndicies(); 
+      
+      counterClockwiseVertexIndicies[0] = clockwiseVertexIndicies[0];
+      counterClockwiseVertexIndicies[1] = clockwiseVertexIndicies[2];
+      counterClockwiseVertexIndicies[2] = clockwiseVertexIndicies[1];
+
+      return counterClockwiseVertexIndicies;
+    }
+    
+    
+    public int[] getClockwiseVertexIndicies() {
+        int[] clockwiseVertexIndicies = new int[3];
      
         //start at heighest vertex
-        orderedVertexIndicies[0] = getMaxYVertexIndex();
+        clockwiseVertexIndicies[0] = getMaxYVertexIndex();
 
         int[] otherVertexIndicies = new int[2];
         int index = 0;
         for (int i = 0; i < 3; i++) {
-            if (this.vertexIndicies[i] != orderedVertexIndicies[0]) {
+            if (this.vertexIndicies[i] != clockwiseVertexIndicies[0]) {
                 otherVertexIndicies[index] = this.vertexIndicies[i];
                 index++;
             }
 
         }
         
-        Point3D currentVertex = this.objModel.vertices[orderedVertexIndicies[0]];
- 
-        Point3D vertex1 = this.objModel.vertices[otherVertexIndicies[0]];
-        
-        double x12, y12, theta1, theta2;
-        
-        x12 = vertex1.getX() - currentVertex.getX();
-        y12 = vertex1.getY() - currentVertex.getY();
-        if(x12 < 0)
-            theta1 = Math.PI + Math.atan(Math.abs(x12) / Math.abs(y12));
-        else
-            theta1 = Math.PI - Math.atan(Math.abs(x12) / Math.abs(y12));
-  
-        
-        Point3D vertex2 = this.objModel.vertices[otherVertexIndicies[1]];
-        x12 = vertex2.getX() - currentVertex.getX();
-        y12 = vertex2.getY() - currentVertex.getY();
-        if(x12 < 0)
-            theta2 = Math.PI + Math.atan(Math.abs(x12) / Math.abs(y12));
-        else
-            theta2 = Math.PI - Math.atan(Math.abs(x12) / Math.abs(y12));
-        
-        if(isClockwise()) {
-            if(theta1 < theta2) {
-              orderedVertexIndicies[1] = otherVertexIndicies[0];   
-              orderedVertexIndicies[2] = otherVertexIndicies[1];   
-            } else {
-              orderedVertexIndicies[1] = otherVertexIndicies[1];
-              orderedVertexIndicies[2] = otherVertexIndicies[0];                    
-            }
+        if(this.objModel.vertices[otherVertexIndicies[0]].getX() > this.objModel.vertices[otherVertexIndicies[1]].getX()) {
+          clockwiseVertexIndicies[1] = otherVertexIndicies[0];    
+          clockwiseVertexIndicies[2] = otherVertexIndicies[1];    
+        } else if (this.objModel.vertices[otherVertexIndicies[0]].getX() == this.objModel.vertices[otherVertexIndicies[1]].getX()) {
+          if(this.objModel.vertices[otherVertexIndicies[0]].getY() > this.objModel.vertices[otherVertexIndicies[1]].getY()) { 
+            clockwiseVertexIndicies[1] = otherVertexIndicies[0];    
+            clockwiseVertexIndicies[2] = otherVertexIndicies[1];      
+          } else {
+            clockwiseVertexIndicies[1] = otherVertexIndicies[1];    
+            clockwiseVertexIndicies[2] = otherVertexIndicies[0];     
+          }     
         } else {
-          if(theta1 > theta2) {
-              orderedVertexIndicies[1] = otherVertexIndicies[0];   
-              orderedVertexIndicies[2] = otherVertexIndicies[1];   
-            } else {
-              orderedVertexIndicies[1] = otherVertexIndicies[1];
-              orderedVertexIndicies[2] = otherVertexIndicies[0];                    
-            }    
-        } 
+            clockwiseVertexIndicies[1] = otherVertexIndicies[1];    
+            clockwiseVertexIndicies[2] = otherVertexIndicies[0]; 
+        }
 
-        return orderedVertexIndicies;
+        return clockwiseVertexIndicies;
     }
-//    
-//    public Point2D[] getUV() {
-//        
-//    }
+    
+    //need to test
+    public Point2D[] getOrderedUV() {
+      Point2D[] uv = new Point2D[getLength()];
+      int[] orderedVertexIndicies = getOrderedVertexIndicies();
+        for (int i = 0; i < orderedVertexIndicies.length; i++) {
+            for (int j=0; j < this.vertexIndicies.length; j++) {
+              if(orderedVertexIndicies[i] == this.vertexIndicies[j]) {
+                uv[i] = this.uv[j];
+                break;
+              }               
+            }
+        }
+
+        return uv;    
+    }
 
     public boolean isTriangle() {
         return getLength() == 3;

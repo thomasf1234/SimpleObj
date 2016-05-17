@@ -85,8 +85,8 @@ public class PolygonTest {
         
         assertEquals(3, vertices.length);
         assertEquals(new Point3D(1, 10, 0), vertices[0]);
-        assertEquals(new Point3D(1, 0, 1), vertices[1]);
-        assertEquals(new Point3D(0, 0, 0), vertices[2]);
+        assertEquals(new Point3D(0, 0, 0), vertices[1]);
+        assertEquals(new Point3D(1, 0, 1), vertices[2]);
     }
 
     

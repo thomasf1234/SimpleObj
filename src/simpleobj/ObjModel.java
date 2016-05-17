@@ -6,6 +6,7 @@
 package simpleobj;
 
 import javafx.collections.ObservableFloatArray;
+import javafx.geometry.Point2D;
 import javafx.geometry.Point3D;
 import javafx.scene.shape.ObservableFaceArray;
 import javafx.scene.shape.TriangleMesh;
@@ -24,25 +25,27 @@ public class ObjModel {
         this.name = name;
     }
     
-//    public TriangleMesh toTriangleMesh() {
-//        TriangleMesh mesh = new TriangleMesh();
-//////        mesh.getTexCoords().addAll(0, 0);
-//////        float h = 150;                    // Height
-//////        float s = 300;      // Side
-//        ObservableFloatArray points = mesh.getPoints();
-//
-//        for (Point3D vertex : this.vertices) {
-//            points.addAll((float) vertex.getX(), (float) vertex.getY(), (float) vertex.getZ());
-//        }
-//        
-//        ObservableFloatArray uvCoords = mesh.getTexCoords();
-//        ObservableFaceArray faces = mesh.getFaces();
-//        for(Polygon polygon : this.polygons) {
-//            Point2D[] uv = polygon.getUV();
-//            uvCoords.addAll(uv.getX(), uv.getY());
-//            
-//            Point3D 
-//        }
-//    }
+    public TriangleMesh toTriangleMesh() {
+        TriangleMesh mesh = new TriangleMesh();
+        ObservableFloatArray points = mesh.getPoints();
+
+        for (Point3D vertex : this.vertices) {
+            points.addAll((float) vertex.getX(), (float) vertex.getY(), (float) vertex.getZ());
+        }
+        
+        ObservableFloatArray uvCoords = mesh.getTexCoords();
+        ObservableFaceArray faces = mesh.getFaces();
+        for(Polygon polygon : this.polygons) {          
+            int[] orderedVertexIndicies = polygon.getOrderedVertexIndicies();
+            Point2D[] orderedUV = polygon.getOrderedUV();
+            
+            for(int i=0; i < polygon.getLength(); i++) {
+              faces.addAll(orderedVertexIndicies[i]);
+              uvCoords.addAll((float) orderedUV[i].getX(), (float) orderedUV[i].getY());                
+            }
+        }
+        
+        return mesh;
+    }
 
 }
