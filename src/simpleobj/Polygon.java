@@ -34,7 +34,7 @@ public class Polygon {
     public Point3D[] getVertices() {
         Point3D[] vertices = new Point3D[getLength()];
         for (int i = 0; i < vertices.length; i++) {
-            vertices[i] = this.objModel.vertices[vertexIndicies[i]];
+            vertices[i] = this.objModel.vertices[this.vertexIndicies[i]];
         }
 
         return vertices;
@@ -52,11 +52,37 @@ public class Polygon {
     }
     
     public int[] getOrderedVertexIndicies() {
-      if(isClockwise()) {
-          return getClockwiseVertexIndicies();
-      } else {
-          return getCounterClockwiseVertexIndicies();
-      }
+        int[] orderedVertexIndicies = new int[3]; 
+        
+        Point3D[] vertices = getVertices();
+        
+        Point3D v01 = new Point3D(vertices[1].getX() - vertices[0].getX(), 
+                vertices[1].getY() - vertices[0].getY(), 
+                vertices[1].getZ() - vertices[0].getZ());
+        
+        Point3D v02 = new Point3D(vertices[2].getX() - vertices[0].getX(), 
+                vertices[2].getY() - vertices[0].getY(), 
+                vertices[2].getZ() - vertices[0].getZ());
+        
+        Point3D v01CrossV02 = v01.crossProduct(v02);
+        
+        if(v01CrossV02.dotProduct(this.normal) > 0) {
+           orderedVertexIndicies[0] = this.vertexIndicies[0];   
+           orderedVertexIndicies[1] = this.vertexIndicies[1];   
+           orderedVertexIndicies[2] = this.vertexIndicies[2];   
+        } else {
+           orderedVertexIndicies[0] = this.vertexIndicies[0];   
+           orderedVertexIndicies[1] = this.vertexIndicies[2];   
+           orderedVertexIndicies[2] = this.vertexIndicies[1];   
+        }
+        System.out.println("kkkkkkk");
+        
+        return orderedVertexIndicies;
+//      if(!isClockwise()) {
+//          return getClockwiseVertexIndicies();
+//      } else {
+//          return getCounterClockwiseVertexIndicies();
+//      }
     }
     
     public int[] getCounterClockwiseVertexIndicies() {
@@ -79,9 +105,9 @@ public class Polygon {
 
         int[] otherVertexIndicies = new int[2];
         int index = 0;
-        for (int i = 0; i < 3; i++) {
-            if (this.vertexIndicies[i] != clockwiseVertexIndicies[0]) {
-                otherVertexIndicies[index] = this.vertexIndicies[i];
+        for (int vertexIndex : this.vertexIndicies) {
+            if (vertexIndex != clockwiseVertexIndicies[0]) {
+                otherVertexIndicies[index] = vertexIndex;
                 index++;
             }
 
@@ -131,11 +157,11 @@ public class Polygon {
     }
     
     private int getMaxYVertexIndex() {
-        int maxYVertexIndex = 0;
+        int maxYVertexIndex = this.vertexIndicies[0];
 
         for (int i = 1; i < getLength(); i++) {
-            if (this.objModel.vertices[i].getY() > this.objModel.vertices[maxYVertexIndex].getY()) {
-                maxYVertexIndex = i;
+            if (this.objModel.vertices[this.vertexIndicies[i]].getY() > this.objModel.vertices[maxYVertexIndex].getY()) {
+                maxYVertexIndex = this.vertexIndicies[i];
             }
         }
 

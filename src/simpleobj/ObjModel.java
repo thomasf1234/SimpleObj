@@ -30,7 +30,8 @@ public class ObjModel {
         ObservableFloatArray points = mesh.getPoints();
 
         for (Point3D vertex : this.vertices) {
-            points.addAll((float) vertex.getX(), (float) vertex.getY(), (float) vertex.getZ());
+           points.addAll((float) vertex.getX(), (float) vertex.getY(), (float) vertex.getZ());
+           System.out.println("points count" + points.size());
         }
         
         ObservableFloatArray uvCoords = mesh.getTexCoords();
@@ -39,9 +40,9 @@ public class ObjModel {
             int[] orderedVertexIndicies = polygon.getOrderedVertexIndicies();
             Point2D[] orderedUV = polygon.getOrderedUV();
             
-            for(int i=0; i < polygon.getLength(); i++) {
-              faces.addAll(orderedVertexIndicies[i]);
-              uvCoords.addAll((float) orderedUV[i].getX(), (float) orderedUV[i].getY());                
+            for(int i=0; i < polygon.getLength(); i++) {         
+              uvCoords.addAll((float) orderedUV[i].getX(), (float) orderedUV[i].getY());         
+              faces.addAll(orderedVertexIndicies[i], i);
             }
         }
         
