@@ -31,7 +31,6 @@ public class ObjModel {
 
         for (Point3D vertex : this.vertices) {
            points.addAll((float) vertex.getX(), (float) vertex.getY(), (float) vertex.getZ());
-           System.out.println("points count" + points.size());
         }
         
         ObservableFloatArray uvCoords = mesh.getTexCoords();
