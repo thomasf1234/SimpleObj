@@ -25,8 +25,8 @@ public class ObjModel {
         this.name = name;
     }
     
-    public TriangleMesh toTriangleMesh() {
-        TriangleMesh mesh = new TriangleMesh();
+    public SimpleObj toSimpleObj() {
+        SimpleObj mesh = new SimpleObj();
         ObservableFloatArray points = mesh.getPoints();
 
         for (Point3D vertex : this.vertices) {
