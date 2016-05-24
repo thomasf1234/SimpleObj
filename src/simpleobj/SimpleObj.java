@@ -5,13 +5,17 @@
  */
 package simpleobj;
 
+import javafx.scene.shape.MeshView;
 import javafx.scene.shape.TriangleMesh;
 
 /**
  *
  * @author ad
  */
-public class SimpleObj extends TriangleMesh {
+public class SimpleObj extends MeshView {
+    public SimpleObj(TriangleMesh mesh) {
+        super(mesh);
+    }
 //    public static SimpleObj clone(SimpleObj simpleObj) {
 //SimpleObj clone = new SimpleObj();
 //clone.getPoints().addAll(simpleObj.getPoints());

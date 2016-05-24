@@ -8,6 +8,11 @@ package simpleobj;
 import javafx.collections.ObservableFloatArray;
 import javafx.geometry.Point2D;
 import javafx.geometry.Point3D;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.PhongMaterial;
+import javafx.scene.shape.CullFace;
+import javafx.scene.shape.DrawMode;
+import javafx.scene.shape.MeshView;
 import javafx.scene.shape.ObservableFaceArray;
 import javafx.scene.shape.TriangleMesh;
 
@@ -26,7 +31,8 @@ public class ObjModel {
     }
     
     public SimpleObj toSimpleObj() {
-        SimpleObj mesh = new SimpleObj();
+        //SimpleObj mesh = new SimpleObj();
+        TriangleMesh mesh = new TriangleMesh();
         ObservableFloatArray points = mesh.getPoints();
 
         for (Point3D vertex : this.vertices) {
@@ -45,7 +51,16 @@ public class ObjModel {
             }
         }
         
-        return mesh;
+        SimpleObj simpleObj = new SimpleObj(mesh);
+        simpleObj.setCullFace(CullFace.BACK);
+        simpleObj.setDrawMode(DrawMode.FILL);
+        PhongMaterial material = new PhongMaterial();
+        material.setDiffuseColor(Color.GRAY);
+        material.setSpecularColor(Color.WHITE);
+        material.setSpecularPower(10.0);
+        simpleObj.setMaterial(material);
+        
+        return simpleObj;
     }
 
 }
